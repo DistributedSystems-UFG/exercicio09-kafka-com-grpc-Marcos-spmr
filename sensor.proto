@@ -1,0 +1,24 @@
+syntax = "proto3";
+package sensor;
+
+option java_package = "br.ufg.inf.sd.grpc";
+option java_multiple_files = true;
+
+service SensorService {
+  // Consulta a última média processada
+  rpc GetLatestAverage (EmptyRequest) returns (SensorData);
+  
+  // Consulta o histórico completo armazenado
+  rpc GetHistory (EmptyRequest) returns (HistoryResponse);
+}
+
+message EmptyRequest {}
+
+message SensorData {
+  double temperature = 1;
+  int64 timestamp = 2;
+}
+
+message HistoryResponse {
+  repeated SensorData records = 1;
+}
